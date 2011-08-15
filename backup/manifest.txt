@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: 1.1 (André Sá de Mello)
+Class-Path: .
+Main-Class: GSudokuSolver
