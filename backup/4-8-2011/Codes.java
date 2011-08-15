@@ -1,7 +1,0 @@
-public enum Codes {
-	SUCCESS,
-	NO_TASK,
-	ERR_OUT_OF_RANGE,
-	ERR_INVALID_SIZE,
-	ERR_NO_SYMBOLS
-}
