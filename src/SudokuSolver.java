@@ -18,11 +18,16 @@
 import javax.swing.ImageIcon;
 import com.apple.eawt.Application;
 
+/**
+ * This is the Main Class for the program. It just creates an instance of
+ * GSudokuContainer, which provides the main window.
+ */
 public class SudokuSolver {
 	public static void main (String[] args) {
 		GSudokuContainer inst = new GSudokuContainer();
 		ImageIcon icon = inst.createImageIcon("sudoku_icon.png");
 		
+		// Mac OS X needs specific aesthetic settings
 		if (System.getProperty("os.name").equals("Mac OS X")) {
 			Application app = Application.getApplication();
 			app.setDockIconImage(icon.getImage());

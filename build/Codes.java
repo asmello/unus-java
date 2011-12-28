@@ -15,6 +15,10 @@
  *  along with Unus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * This is an enumeration of codes for internal use in the program. Can represent an
+ * error, state or other needed response.
+ */
 public enum Codes {
 	NULL,
 	SUCCESS,

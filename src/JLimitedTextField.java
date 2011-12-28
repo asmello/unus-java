@@ -18,19 +18,31 @@
 import javax.swing.*;
 import javax.swing.text.*;
 
+/** 
+ * This class provides a custom JTextField which allows only alphanumerical input.
+ * It also provides utility methods for conversion of strings into adequate values.
+ */
 public class JLimitedTextField extends PlainDocument {
+	// CONSTANTS
 	private static final long serialVersionUID = -3846912517390711715L;
 	public static final String charTable =
 			"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static final int MIN = 0;
 	public static final int MAX = 36;
+	// Acceptable types
 	public static final int ALL = 0;
 	public static final int NUM = 1;
 	public static final int CHAR = 2;
 	public static final int POS = 3;
+	
+	// VARIABLES
 	private int limit;
 	private int max, min;
     
+	/**
+	 * @param limit limit of characters
+	 * @param type a type constant
+	 */
     JLimitedTextField(int limit, int type) {
     	super();
     	this.limit = limit;
@@ -58,40 +70,64 @@ public class JLimitedTextField extends PlainDocument {
     	}
     }
     
+    /**
+     * Creates a configured JTextField and returns it.
+     * @return a configured JTextField
+     */
     public JTextField createField () {
     	JTextField field = new JTextField(limit);
     	field.setDocument(this);
     	return field;
     }
     
+    // Extension for insertString (checks for valid input). Case insensitive.
     public void insertString (int offset, String  str, AttributeSet attr) 
     		throws BadLocationException 
     {
     	if (str == null) return;
         
         if ((getLength() + str.length()) <= limit) {
-        	str = str.toUpperCase();
+        	str = str.toUpperCase(); // Make case-insensitive
         	for (int i = 0; i < str.length(); ++i)
         		if (!validate(str.charAt(i))) return;
             super.insertString(offset, str, attr);
         }
     }
     
+    /** 
+     * Returns proper numerical value for a char, given needed range.
+     * If no valid conversion can be made, returns GSudokuBoard.NULL.
+     * @param ch character to convert
+     * @param min minimum valid value
+     * @param max maximum valid value
+     * @return the correct numerical representation in the range
+     */
     public static int getValue (char ch, int min, int max) {
     	if (min < MIN || max > MAX)
     		throw new IllegalArgumentException("* Out of range!");
-    	ch = Character.toUpperCase(ch);
+    	ch = Character.toUpperCase(ch); // Make case-insensitive
     	for (int i = min; i < max; ++i)
 			if (charTable.charAt(i) == ch) return i;
-		return -1;
+		return GSudokuBoard.NULL;
     }
     
+    /**
+     * Returns proper character representation for given numerical value.
+     * If no valid conversion can be made, returns a space character.
+     * @param num value to convert
+     * @return the correct alphanumerical representation of the value
+     */
     public static char getChar (int num) {
     	if (num > JLimitedTextField.MAX || num < 0)
     		return ' ';
     	return charTable.charAt(num);
     }
     
+    /**
+     * Checks if a character is an alphanumerical in range.
+     * @param ch character to check
+     * @return validation result
+     */
     private boolean validate (char ch) {
     	for (int i = min; i < max; ++i)
     		if (ch == charTable.charAt(i)) return true;

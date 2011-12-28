@@ -15,6 +15,9 @@
  *  along with Unus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class represents a simple linked integer node.
+ */
 public final class IntNode {
 	public int value;
 	public IntNode next;

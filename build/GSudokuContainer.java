@@ -49,21 +49,26 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.filechooser.FileFilter;
 
 public class GSudokuContainer {
+	// Store sudoku board
 	private GSudokuBoard sudoku;
 	
+	// Store main window
 	private JFrame frame;
 	
+	// Store menu objects
 	private JMenu fileMenu, optionsMenu;
 	private JMenuBar menuBar;
 	private JMenuItem openFile, saveFile;
 	private JCheckBoxMenuItem slowMotion;
 	
+	// Store main window objects
 	private JPanel buttons, status;
 	private JLabel minLabel, sizeLabel, statusLabel;
 	private JButton solve, clean, reset;
 	private JTextField minField, sizeField;
 	private JFileChooser fileChooser;
 	
+	// Utility dimensioning methods (to aid sudoku board drawing)
 	public Dimension getSize() { return frame.getSize(); }
 	public int getAvailableHeight() {
 		return frame.getHeight() - frame.getInsets().top
@@ -78,7 +83,7 @@ public class GSudokuContainer {
 	}
 	
 	GSudokuContainer() {
-		// MAIN FRAME
+		// MAIN WINDOW
 		frame = new JFrame();
 		frame.setTitle("Unus");
 		frame.setSize(new Dimension(550, 615));
@@ -126,6 +131,7 @@ public class GSudokuContainer {
 		        KeyEvent.VK_O, ActionEvent.ALT_MASK));
 		openFile.getAccessibleContext().setAccessibleDescription(
 				"Opens the current board configuration in a file.");
+		// Handle file opening
 		openFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int option = fileChooser.showOpenDialog(frame);
@@ -192,6 +198,7 @@ public class GSudokuContainer {
 		        KeyEvent.VK_S, ActionEvent.ALT_MASK));
 		saveFile.getAccessibleContext().setAccessibleDescription(
 				"Saves the current board configuration in a file.");
+		// Handle file saving
 		saveFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int val = fileChooser.showSaveDialog(frame);
@@ -368,6 +375,7 @@ public class GSudokuContainer {
 	
 	public void setIconImage(Image img) { frame.setIconImage(img); }
 	
+	// Called when solving is done
 	public void setDone() {
 		solve.setEnabled(false);
 		solve.setText("Solve it!");
@@ -377,7 +385,7 @@ public class GSudokuContainer {
 		{ statusLabel.setText(statusString); }
 	
 	public void updateSizeField() {
-		sizeField.setText(sudoku.getBoardSize()+"");
+		sizeField.setText(sudoku.getBoardSize() + "");
 	}
 	
 	public void updateMinField() {

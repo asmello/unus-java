@@ -15,6 +15,9 @@
  *  along with Unus.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * A simple queue-like linked list for storing integers.
+ */
 public class CIntQueue {
 	private IntNode head;
 	private IntNode current;
